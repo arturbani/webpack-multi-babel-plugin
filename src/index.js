@@ -149,15 +149,39 @@ class BabelEsmPlugin {
             }
 
             compilation.hooks.afterOptimizeAssets.tap(PLUGIN_NAME, () => {
-              compilation.assets = Object.assign(
-                childCompilation.assets,
-                compilation.assets,
-              );
+              compilation.assets = {
+                ...childCompilation.assets,
+                ...compilation.assets,
+              };
 
-              compilation.namedChunkGroups = Object.assign(
-                childCompilation.namedChunkGroups,
-                compilation.namedChunkGroups,
-              );
+              for (const [
+                chunkGroupName,
+                chunkGroup,
+              ] of childCompilation.namedChunkGroups.entries()) {
+                if (compilation.namedChunkGroups[chunkGroupName]) {
+                  const assets = [
+                    ...compilation.namedChunkGroups[chunkGroupName].assets,
+                    ...chunkGroup.assets,
+                  ];
+                  compilation.namedChunkGroups[
+                    chunkGroupName
+                  ].assets = assets.filter(
+                    (a, index) => assets.lastIndexOf(a) === index,
+                  );
+
+                  const chunks = [
+                    ...compilation.namedChunkGroups[chunkGroupName].chunks,
+                    ...chunkGroup.chunks,
+                  ];
+                  compilation.namedChunkGroups[
+                    chunkGroupName
+                  ].chunks = chunks.filter(
+                    (c, index) => chunks.lastIndexOf(c) === index,
+                  );
+                } else {
+                  compilation.namedChunkGroups[chunkGroupName] = chunkGroup;
+                }
+              }
 
               const childChunkFileMap = childCompilation.chunks.reduce(
                 (chunkMap, chunk) => {
