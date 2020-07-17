@@ -11,11 +11,11 @@ const {
   getBabelLoader,
 } = require('./babel-utils');
 
-const PLUGIN_NAME = 'BabelEsmPlugin';
+const PLUGIN_NAME = 'MultiBabelPlugin';
 const FILENAME = '[name].es6.js';
 const CHUNK_FILENAME = '[id].es6.js';
 
-class BabelEsmPlugin {
+class MultiBabelPlugin {
   constructor(options) {
     this.options_ = Object.assign(
       {
@@ -211,4 +211,4 @@ class BabelEsmPlugin {
   }
 }
 
-module.exports = BabelEsmPlugin;
+module.exports = MultiBabelPlugin;
