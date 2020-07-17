@@ -1,5 +1,5 @@
 {
-  "name": "babel-esm-plugin",
+  "name": "@hackr/multi-babel",
   "version": "0.9.0",
   "description": "Add this plugin to generate mirrored esm modules for your existing bundles",
   "main": "src/index.js",
@@ -13,6 +13,13 @@
   },
   "keywords": [],
   "author": "Prateek Bhatnagar",
+  "contributors": [
+    {
+      "name": "Gabriel Nunes",
+      "email": "gabriel@multiverso.me",
+      "url": "https://github.com/gnuns"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/prateekbh/babel-esm-plugin/issues"
