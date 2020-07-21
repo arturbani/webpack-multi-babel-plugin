@@ -81,6 +81,10 @@ class MultiBabelPlugin {
         };
       }
 
+      if (this.options_.beforeSetEntries) {
+        entries = this.options_.beforeSetEntries(entries);
+      }
+
       Object.keys(entries).forEach(entry => {
         const entryFiles = entries[entry];
         if (Array.isArray(entryFiles)) {
